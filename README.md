@@ -1,0 +1,1 @@
+This is a Kanban board created for a client of mine. Made with HTML, CSS, and Javascript for now. 
