@@ -11,9 +11,9 @@ export default class KanbanAPI {
 
     static insertItem(columnId, content) {
         const data = read()
-        const column = data().find(column => column.id == columnId)
+        const column = data.find(column => column.id == columnId)
         const item = {
-            id: Math.floor(Math.random() * 100000), 
+            id: Math.floor(Math.random() * 100000),
             content,
         }
 
@@ -33,7 +33,7 @@ export default class KanbanAPI {
             for (const column of data) {
                 const item = column.items.find(item => item.id == itemId)
 
-                if(item){
+                if(item) {
                     return [item, column]
                 }
             }
@@ -46,9 +46,9 @@ export default class KanbanAPI {
         item.content = newProps.content === undefined ? item.content : newProps.content
 
         if(
-            newProps.columnId !== undefined 
+            newProps.columnId !== undefined
             && newProps.position !== undefined
-        ){
+        ) {
             const targetColumn = data.find(column => column.id == newProps.columnId)
 
             if(!targetColumn) {
@@ -66,7 +66,7 @@ export default class KanbanAPI {
     static deleteItem(itemId) {
         const data = read()
 
-        for(const column of data) {
+        for (const column of data) {
             const item = column.items.find(item => item.id == itemId)
 
             if(item) {
@@ -78,7 +78,7 @@ export default class KanbanAPI {
     }
 }
 
-function read () {
+function read() {
     const json = localStorage.getItem("kanban-data")
 
     if(!json) {
@@ -105,6 +105,6 @@ function read () {
     return JSON.parse(json)
 }
 
-function save (data) {
+function save(data) {
     localStorage.setItem("kanban-data", JSON.stringify(data))
 }
