@@ -7,15 +7,15 @@ export default class DropZone {
         range.selectNode(document.body)
 
         const dropZone = range.createContextualFragment(`
-        <div class="kanban__dropzone"></div>
+            <div class="kanban__dropzone"></div>
         `).children[0]
 
         dropZone.addEventListener("dragover", e => {
             e.preventDefault()
-            dropZone.classList.ass("kanban__dropzone--active")
+            dropZone.classList.add("kanban__dropzone--active")
         })
 
-        dropZone.addEventListener("dragleave", e => {
+        dropZone.addEventListener("dragleave", () => {
             dropZone.classList.remove("kanban__dropzone--active")
         })
 
@@ -28,11 +28,11 @@ export default class DropZone {
             const dropZonesInColumn = Array.from(columnElement.querySelectorAll(".kanban__dropzone"))
             const droppedIndex = dropZonesInColumn.indexOf(dropZone)
             const itemId = Number(e.dataTransfer.getData("text/plain"))
-            const droppedItemElement = document.querySelector(`[data-id="${itemId}]`)
+            const droppedItemElement = document.querySelector(`[data-id="${itemId}"]`)
             const insertAfter = dropZone.parentElement.classList.contains("kanban__item") ? dropZone.parentElement : dropZone
 
-            if(droppedItemElement.contains(dropZone)) {
-                return 
+            if (droppedItemElement.contains(dropZone)) {
+                return
             }
 
             insertAfter.after(droppedItemElement)
@@ -44,7 +44,6 @@ export default class DropZone {
         })
 
         return dropZone
-
 
     }
 }
